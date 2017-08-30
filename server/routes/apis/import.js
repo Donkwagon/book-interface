@@ -1,7 +1,7 @@
 const express = require('express');
 const imp = express.Router();
 
-const USER_COLLECTION =            "books";
+const BOOK_COLLECTION = "books";
 
 var ObjectID = require('mongodb').ObjectID;
 
@@ -31,10 +31,58 @@ crawlLibraryPage = function(pageNum){
             'referer':'https://read.douban.com/people/not_your_man/library',
             'Host':'read.douban.com'
         }
-    },  function (error, response, body) {
+    },  function (error, response, html) {
+        console.log(pageNum);
         console.log(response.statusCode);
-        pageNum+=10;
-        crawlLibraryPage(pageNum);
+        var books = [];
+
+        $ = cheerio.load(html);
+                
+        $('.library-item').each(function(i, el) {
+            var title = "";
+            var coverImg = $('img', this).attr('data-src');
+            var title = $('.rating-info', this).attr('data-article-title');
+            var subtitle = $('.subtitle', this).text();
+            var bookId = $('.rating-info', this).attr('data-rating-aid');
+            var url_info = "https://read.douban.com" + $('.title', this).children('a').attr('href');
+            var url_reader = $('.btn-read', this).attr('href');
+            var bought_at = $('.bought-date', this).text();
+            var authors = [];
+
+            $('.author-item', this).each(function(i, el) {
+                var author = {
+                    name: $(this).text(),
+                    url_search: "https://read.douban.com" + $(this).attr('href')
+                }
+
+                authors.push(author);
+            });
+            
+
+            var book = {
+                title:title,
+                subTitle:subtitle,
+                bookId:bookId,
+                url_info:url_info,
+                url_reader:url_reader,
+                coverImg:coverImg,
+                authors:authors,
+                bought_at:bought_at,
+            }
+
+            books.push(book);
+        });
+        
+        db.collection(BOOK_COLLECTION).insertMany(books, function(err, doc) {
+            if (err) {
+                handleError(res, err.message, "Failed to create new security.");
+            } else {
+            }
+        });
+        if(books.length > 0){
+            pageNum+=10;
+            crawlLibraryPage(pageNum);
+        }
     });
 
 }

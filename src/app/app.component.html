@@ -5,7 +5,7 @@
     <i class="fa fa-cloud-download" aria-hidden="true"></i>&nbsp;
     导入
   </div>
-  <div class="app-nav r">
+  <div class="app-nav r" (click)="getBooks()">
     账号关联
   </div>
   <div class="app-nav r">
@@ -13,6 +13,26 @@
   </div>
 </div>
 
-<div class="app-side-panel">
+<div class="app-side-panel c">
+    <div class="app-side-panel-item">
+      计算机与互联网
+    </div>
+    <div class="app-side-panel-item">
+      科幻
+    </div>
+    <div class="app-side-panel-item">
+      金融
+    </div>
+    <div class="app-side-panel-item">
+      商业
+    </div>
+</div>
 
+<div class="app-main">
+  <div class="app-main-body r wr">
+    <div class="book c" *ngFor="let book of books">
+      <img [src]="book.coverImg"/>
+      <span>{{book.title}}</span>
+    </div>
+  </div>
 </div>
