@@ -32,8 +32,10 @@ crawlLibraryPage = function(pageNum){
             'Host':'read.douban.com'
         }
     },  function (error, response, html) {
+
         console.log(pageNum);
         console.log(response.statusCode);
+
         var books = [];
 
         $ = cheerio.load(html);
@@ -57,7 +59,6 @@ crawlLibraryPage = function(pageNum){
 
                 authors.push(author);
             });
-            
 
             var book = {
                 title:title,
@@ -72,18 +73,25 @@ crawlLibraryPage = function(pageNum){
 
             books.push(book);
         });
-        
-        db.collection(BOOK_COLLECTION).insertMany(books, function(err, doc) {
-            if (err) {
-                handleError(res, err.message, "Failed to create new security.");
-            } else {
-            }
-        });
+
         if(books.length > 0){
+            
+            db.collection(BOOK_COLLECTION).insertMany(books, function(err, doc) {
+                if (err) {
+                    handleError(res, err.message, "Failed to create new security.");
+                } else {
+                }
+            });
+
             pageNum+=10;
             crawlLibraryPage(pageNum);
         }
+
     });
+
+}
+
+crawlBookInfoPage = function(bookId){
 
 }
 

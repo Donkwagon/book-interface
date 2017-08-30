@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
     this.bookService.getBooks().then(res => {
       console.log(res);
       if(res){
-        this.books = res.splice(0,20);
+        this.books = res;
       }
     });
   }
