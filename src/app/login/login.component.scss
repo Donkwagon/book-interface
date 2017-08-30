@@ -1,0 +1,21 @@
+
+.entrance-interface{
+    margin:3em auto;
+    width:936px;
+    height: 600px;
+    background-color:white;
+
+    form{
+        padding:24px 0;
+        input{
+            border:none;
+            font-size:1rem;
+            padding:16px 24px;
+            border-bottom:#eee solid 1px;
+
+            &:focus{
+                outline:none;
+            }
+        }
+    }
+}

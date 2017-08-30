@@ -29,6 +29,11 @@ body{padding:0;margin:0;}
     align-items:center;
     z-index:10;
     box-shadow:0 0 1px #999;
+    
+    a:link {color: inherit;text-decoration:none;}
+    a:visited {color: inherit;text-decoration:none;}
+    a:hover {color: inherit;text-decoration:none;}
+    a:active {color: inherit;text-decoration:none;}
 
     .app-nav{
         height:100%;
