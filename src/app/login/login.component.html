@@ -1,7 +1,18 @@
 <div class="entrance-interface">
+
   <form class="c">
-    <input type="text" placeholder="Username"/>
-    <input type="text" placeholder="email"/>
-    <input type="password" />
+
+    <input type="text" placeholder="用户名" [(ngModel)]="username" name="username"/>
+    <input type="text" placeholder="邮箱" [(ngModel)]="email" name="email"/>
+    <input type="password" placeholder="密码" [(ngModel)]="password" name="password"/>
+
+    <div class="btn paper paper-raise" (click)="createAccount()">创建账户</div>
+    <hr>
+    <input type="text" placeholder="邮箱" [(ngModel)]="email" name="email"/>
+    <input type="password" placeholder="密码" [(ngModel)]="password" name="password"/>
+
+    <div class="btn paper paper-raise" (click)="loginAccount()">登录账户</div>
+
   </form>
+  
 </div>
