@@ -2,8 +2,7 @@ const express = require('express');
 var app = express();
 const router = express.Router();
 
-// const user =   require('./apis/user.api');
-
-// router.use('/u', user);
+const imp =  require('./apis/import');
+router.use('/import', imp);
 
 module.exports = router;

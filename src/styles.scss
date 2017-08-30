@@ -1,1 +1,54 @@
 /* You can add global styles to this file, and also import other style files */
+
+$font-stack: 'Roboto', "Helvetica Neue", sans-serif;
+
+////////////////////////////////////////////////////////////////////////
+/* Frequently used css properties */
+.r{display:flex;flex-direction:row;}.c{display:flex;flex-direction:column;}.wr{flex-wrap:wrap;}
+.f1{display:flex;flex:1;}.f162{display:flex;flex:1.62;}.f2{display:flex;flex:2;}.s0{flex-shrink:0;}
+.aie{align-items:flex-end;}
+.ac{text-align:center;}.al{text-align:left;}.ar{text-align:right;}
+.w100{width:100%;}.h100{height:100%;}
+.ofys{overflow-y:scroll;}
+.fe{justify-content:flex-end;}
+////////////////////////////////////////////////////////////////////////
+
+html{
+    background-color:#eeeeea;
+    font-family: $font-stack;
+    font-size:14px;
+}
+
+body{padding:0;margin:0;}
+
+.app-nav-wrapper{
+    position:fixed;
+    top:0;left:0;
+    width:100%;height: 3em;
+    background-color:#fff;
+    align-items:center;
+    z-index:10;
+    box-shadow:0 0 1px #999;
+
+    .app-nav{
+        height:100%;
+        padding:0 24px;
+        letter-spacing:1px;
+        align-items:center;
+        cursor: pointer;
+    }
+
+    .logo-wrapper{
+        @extend .app-nav;
+    }
+}
+
+.app-side-panel{
+    position: fixed;
+    top:0;
+    left:0;
+    width:20em;
+    height: 100%;
+    background-color:#fff;
+
+}
