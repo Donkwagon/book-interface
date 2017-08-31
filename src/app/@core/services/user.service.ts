@@ -30,13 +30,23 @@ export class UserService {
                  .catch(this.handleError);
     }
 
-    createUser(newUser: User): Promise<User | void> {
+    createUser(newUser: any): Promise<User | void> {
       let data = newUser;
       return this.http.post(this.UsersUrl, data)
                  .toPromise()
                  .then(response => response.json() as User)
                  .catch(this.handleError);
     }
+
+
+    loginUser(user: any): Promise<User | void> {
+        let data = user;
+        return this.http.post(this.UsersUrl + "/login", data)
+                   .toPromise()
+                   .then(response => response.json() as User)
+                   .catch(this.handleError);
+    }
+  
 
     deleteUser(deleteUserId: String): Promise<String | void> {
       return this.http.delete(this.UsersUrl + '/' + deleteUserId)
