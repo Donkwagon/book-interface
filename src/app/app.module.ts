@@ -13,13 +13,15 @@ import { AppRoutingModule }                            from './app-routing.modul
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { BookComponent } from './book/book.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    BookComponent
+    BookComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
