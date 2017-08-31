@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Book } from '../classes/Book';
+import { Book } from '../classes/book';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
