@@ -14,7 +14,7 @@ $font-stack: 'Roboto', "Helvetica Neue", sans-serif;
 ////////////////////////////////////////////////////////////////////////
 
 html{
-    background-color:#eeeeea;
+    background-color:rgb(246, 246, 241);
     font-family: $font-stack;
     font-size:14px;
 }
@@ -61,6 +61,7 @@ body{padding:0;margin:0;}
     height: 100%;
     background-color:#fff;
     z-index:2;
+    border-right:#eee solid 1px;
 
     .app-side-panel-item{
         padding:16px 24px;
@@ -92,6 +93,10 @@ body{padding:0;margin:0;}
     }
 }
 
+.app-page{
+    padding-top:3em;
+}
+
 .app-main{
     position: fixed;
     top:0;left:0;
@@ -114,9 +119,8 @@ body{padding:0;margin:0;}
     span{font-size:11px;color:#999;}
 }
 
-  
-  /* Base Button Style */
-  .btn {
+
+.btn {
     position: relative;
     display: block;
     width: 250px;
@@ -124,18 +128,18 @@ body{padding:0;margin:0;}
     padding: 10px;
 
     cursor:pointer;
-    
+
     background-color: #fff;
     border: 1px solid #ccc;
-  
+
     color: #000;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
-    
+
     transform-style: flat;
     transition: all 250ms ease-out;
-    
+
     &:before,
     &:after {
         content: "";
@@ -143,28 +147,23 @@ body{padding:0;margin:0;}
         z-index: -2;
         transition: all 250ms ease-out;
     }
-  }
-  
-  /* Paper effect – slightly raised off background */
-  .paper {
+}
+
+.paper {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(128, 128, 128, 0.1) inset;
     border-color: #dedede;
-  }
-  
-  /* Raised effect – pushes up on hover */
-  .paper-raise {
+}
+
+.paper-raise {
     &:before {
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
     }
     &:hover {
-      border: 1px solid #fff;
-      
-      &:before {
-              box-shadow: 0 15px 10px -10px rgba(31, 31, 31, 0.5);
-      }
+        border: 1px solid #fff;
+        
+        &:before {
+                box-shadow: 0 15px 10px -10px rgba(31, 31, 31, 0.5);
+        }
     }
-  }
-  
+}

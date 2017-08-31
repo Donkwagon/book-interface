@@ -17,11 +17,17 @@ function handleError(res, reason, message, code) {
 ////////////////////////////////////////////////////////////////////////////////
 //Get user list
 imp.get("/library", function(req, res) {
-
+    
     crawlLibraryPage(0);
 
 });
 
+imp.get("/book", function(req, res) {
+    
+    crawlBookInfoPage("https://read.douban.com/ebook/35051471/?icn=from-reader-page");
+
+});
+    
 crawlLibraryPage = function(pageNum){
     var URL = 'https://read.douban.com/people/not_your_man/library?start=' + pageNum + '&sort=time&mode=grid';
     req = request.defaults({jar: true,rejectUnauthorized: false,followAllRedirects: true});
@@ -91,8 +97,10 @@ crawlLibraryPage = function(pageNum){
 
 }
 
-crawlBookInfoPage = function(bookId){
-    var URL = 'https://read.douban.com/people/not_your_man/library?start=' + pageNum + '&sort=time&mode=grid';
+crawlBookInfoPage = function(url){
+
+    var URL = url;
+    
     req = request.defaults({jar: true,rejectUnauthorized: false,followAllRedirects: true});
     req.get({url: URL,headers: {
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36',
@@ -103,55 +111,62 @@ crawlBookInfoPage = function(bookId){
     },  function (error, response, html) {
         console.log(response.statusCode);
 
-
         $ = cheerio.load(html);
                 
-        $('.library-item').each(function(i, el) {
-            var title = "";
-            var coverImg = $('img', this).attr('data-src');
-            var title = $('.rating-info', this).attr('data-article-title');
-            var subtitle = $('.subtitle', this).text();
-            var bookId = $('.rating-info', this).attr('data-rating-aid');
-            var url_info = "https://read.douban.com" + $('.title', this).children('a').attr('href');
-            var url_reader = $('.btn-read', this).attr('href');
-            var bought_at = $('.bought-date', this).text();
-            var authors = [];
+        $('.article-profile-intros').each(function(i, el) {
+            var intro = $('.abstract-full', this).html();
+            var directory = [];
 
-            $('.author-item', this).each(function(i, el) {
-                var author = {
-                    name: $(this).text(),
-                    url_search: "https://read.douban.com" + $(this).attr('href')
-                }
+            $('.li', this).each(function(i, el) {
+                var level = $(this).attr('class').split("story-item ")[1];
+                var url = $("a", this).attr("href");
+                var title = $("a", this).text();
+                var directoryItem = {
+                    title: title,
+                    url: url,
+                    level: level
+                };
 
-                authors.push(author);
+                directory.push(directoryItem);
+
+            });
+
+            var classification = null;
+            var provider = null;
+            var published_at = null;
+            var ISBN = null;
+            var press = null;
+            var tags = null;
+        
+            $('.article-profile-secondary', this).each(function(i, el) {
+    
+                $('p', this).each(function(i, el) {
+                    if($('span', 'labeled-text', this).attr('itemprop') === "genre"){
+                        var classification = $('span', 'labeled-text', this).text();
+                    }
+                    if($('span', 'labeled-text', this).attr('itemprop') === "publisher"){
+                        var provider = $('span', 'labeled-text', this).text();
+                    }
+                    if($('span', 'labeled-text', this).attr('itemprop') === "datePublished"){
+                        var published_at = $('span', 'labeled-text', this).text();
+                    }
+                });
+
             });
 
             var book = {
-                title:title,
-                subTitle:subtitle,
-                bookId:bookId,
-                url_info:url_info,
-                url_reader:url_reader,
-                coverImg:coverImg,
-                authors:authors,
-                bought_at:bought_at,
+                intro: intro,
+                directory: directory,
+                classification:classification,
+                provider:provider,
+                published_at:published_at,
+                ISBN:ISBN,
+                press:press,
+                tags:tags
             }
 
-            books.push(book);
+            console.log(book);
         });
-
-        if(books.length > 0){
-            
-            db.collection(BOOK_COLLECTION).insertMany(books, function(err, doc) {
-                if (err) {
-                    handleError(res, err.message, "Failed to create new security.");
-                } else {
-                }
-            });
-
-            pageNum+=10;
-            crawlLibraryPage(pageNum);
-        }
 
     });
 

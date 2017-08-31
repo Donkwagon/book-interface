@@ -4,17 +4,25 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class ImportService {
-    private securitiesUrl = '/apis/import';
+    private importUrl = '/apis/import';
 
     constructor (private http: Http) {}
 
     importLibrary(): Promise<any> {
-      return this.http.get(this.securitiesUrl + "/library")
-                 .toPromise()
-                 .then(response => response.json() as any)
-                 .catch(this.handleError);
+      return this.http.get(this.importUrl + "/library")
+                  .toPromise()
+                  .then(response => response.json() as any)
+                  .catch(this.handleError);
     }
 
+
+    importBook(): Promise<any> {
+      return this.http.get(this.importUrl + "/book")
+                  .toPromise()
+                  .then(response => response.json() as any)
+                  .catch(this.handleError);
+    }
+    
 
     private handleError (error: any) {
       const errMsg = (error.message) ? error.message :
