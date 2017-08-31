@@ -41,6 +41,10 @@ body{padding:0;margin:0;}
         letter-spacing:1px;
         align-items:center;
         cursor: pointer;
+
+        &:hover{
+            background-color:#eee;
+        }
     }
 
     .logo-wrapper{
