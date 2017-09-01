@@ -27,4 +27,10 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  rakeData = () => {
+    this.importService.rakeData().then(res => {
+      console.log(res);
+    });
+  }
+
 }

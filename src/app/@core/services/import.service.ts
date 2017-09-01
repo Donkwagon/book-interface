@@ -23,6 +23,13 @@ export class ImportService {
                   .catch(this.handleError);
     }
     
+    rakeData(): Promise<any> {
+      return this.http.get(this.importUrl + "/rake")
+                  .toPromise()
+                  .then(response => response.json() as any)
+                  .catch(this.handleError);
+    }
+
 
     private handleError (error: any) {
       const errMsg = (error.message) ? error.message :
