@@ -31,7 +31,7 @@ imp.get("/book", function(req, res) {
     var books = [];
 
     stream.on('data', function(doc) {
-        if(!doc.classification){
+        if(!doc.providerId){
             books.push(doc);
         }
     });
@@ -240,6 +240,7 @@ crawlBookInfoPage = function(books,index){
                     var publisher = null;
                     var tags = [];
                     var boodId = null;
+                    var providerId = null;
                 
                     $('.labeled-text', this).each(function(i, el) {
                     
@@ -263,7 +264,7 @@ crawlBookInfoPage = function(books,index){
                         }
         
                     });
-        
+                    
                     $('.labeled-text', this).last().addClass('tags-parser-anchor');
                     $('a','.tags-parser-anchor').each(function(i, el) {
                         var tagText = $(this).text();
@@ -278,12 +279,36 @@ crawlBookInfoPage = function(books,index){
         
                         tags.push(e);
                     });
+                    if($('a', '.author-info').attr('href')){
+                        providerId = $('a', '.author-info').attr('href').split("/")[2];
+                        var providerUrl = "https://read.douban.com" + $('a', '.author-info').attr('href');
+                        var providerImg = "https://read.douban.com" + $('img', '.author-info').attr('src');
+                        
+                        var providerObj = {
+                            name: provider,
+                            url: providerUrl,
+                            providerId: providerId,
+                            imgUrl: providerImg
+                        }
+    
+                        console.log(providerObj)
+        
+                        db.collection(PROVIDER_COLLECTION).insert(providerObj, function(err, doc) {
+                            if (err) {
+                                handleError(res, err.message, "Failed to create new security.");
+                            } else {
+                            }
+                        });
+        
+
+                    }
         
                     var bookDetail = {
                         intro: intro,
                         directory: directory,
                         classification:classification,
                         provider:provider,
+                        providerId: providerId,
                         published_at:published_at,
                         ISBN:ISBN,
                         publisher:publisher,
@@ -296,7 +321,6 @@ crawlBookInfoPage = function(books,index){
                         } else {
                         }
                     });
-    
     
                     index++;
                     crawlBookInfoPage(books,index);
