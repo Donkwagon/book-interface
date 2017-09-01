@@ -1,3 +1,8 @@
-<p>
-  book works!
-</p>
+<div class="app-page c">
+  {{book.title}}
+  {{book.subTitle}}
+  <div [innerHTML]="book.intro">
+      {{book.intro}}
+
+  </div>
+</div>

@@ -31,7 +31,7 @@
 <div class="app-main">
   <div class="app-main-body c">
     <div class="book c" *ngFor="let book of books">
-      <span>{{book.title}}</span>
+      <span><a routerLink="/b/{{book.bookId}}">{{book.title}}</a></span>
     </div>
   </div>
 </div>

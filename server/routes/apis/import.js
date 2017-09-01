@@ -181,110 +181,116 @@ crawlBookInfoPage = function(books,index){
     if(index < books.length){
         var book = books[index];
         var URL = book.url_info;
-        console.log(URL);
-        
-        req = request.defaults({jar: true,rejectUnauthorized: false,followAllRedirects: true});
-        req.get({url: URL,headers: {
-                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36',
-                'Cookie':'bid=Pvg4i4SQSYw; gr_user_id=26eaae22-30ef-4544-9721-b019ed1555d9; ct=y; ps=y; ll="108288"; dbcl2="43387531:jljcVJ1pHRE"; ck=nPhV; ap=1; _vwo_uuid_v2=C59C764FAC3032868E5AF181689734A8|e31c5e1f7d672ed25c65be3a6d373905; _ga=GA1.2.986235821.1502083962; _gid=GA1.2.1735521066.1504053368; push_noty_num=0; push_doumail_num=0; __utma=30149280.986235821.1502083962.1504055255.1504059054.17; __utmc=30149280; __utmz=30149280.1504055255.16.11.utmcsr=developers.douban.com|utmccn=(referral)|utmcmd=referral|utmcct=/wiki/; __utmv=30149280.4338; _pk_ref.100001.a7dd=%5B%22%22%2C%22%22%2C1504061149%2C%22https%3A%2F%2Fwww.douban.com%2Fgroup%2Fdbapi%2F%22%5D; _ga=GA1.3.986235821.1502083962; _gid=GA1.3.1760887556.1504035767; _pk_id.100001.a7dd=65d44f7d5b1ff516.1503086500.7.1504061318.1504056594.; _pk_ses.100001.a7dd=*',
-                'referer':'https://read.douban.com/people/not_your_man/library',
-                'Host':'read.douban.com'
-            }
-        },  function (error, response, html) {
-            console.log(response.statusCode);
-    
-            $ = cheerio.load(html);
-                    
-            $('.article-profile-intros').each(function(i, el) {
-                var intro = $('.abstract-full', this).html();
-                var directory = [];
-    
-                $('a', '.story-title').each(function(i, el) {
-                    var level = $(this).parent().parent().attr('class').split("story-item ")[1];
-                    var url = $(this).attr("href");
-                    
-                    var title = $(this).text();
-                    var directoryItem = {
-                        title: title,
-                        url: url,
-                        level: level
-                    };
-    
-                    directory.push(directoryItem);
-    
-                });
-    
-                var classification = null;
-                var provider = null;
-                var published_at = null;
-                var ISBN = null;
-                var publisher = null;
-                var tags = [];
-                var boodId = null;
+        if(!URL.includes("column")&&!URL.includes("bundle")){
+            console.log(URL);
             
-                $('.labeled-text', this).each(function(i, el) {
+            req = request.defaults({jar: true,rejectUnauthorized: false,followAllRedirects: true});
+            req.get({url: URL,headers: {
+                    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36',
+                    'Cookie':'bid=Pvg4i4SQSYw; gr_user_id=26eaae22-30ef-4544-9721-b019ed1555d9; ct=y; ps=y; ll="108288"; dbcl2="43387531:jljcVJ1pHRE"; ck=nPhV; ap=1; _vwo_uuid_v2=C59C764FAC3032868E5AF181689734A8|e31c5e1f7d672ed25c65be3a6d373905; _ga=GA1.2.986235821.1502083962; _gid=GA1.2.1735521066.1504053368; push_noty_num=0; push_doumail_num=0; __utma=30149280.986235821.1502083962.1504055255.1504059054.17; __utmc=30149280; __utmz=30149280.1504055255.16.11.utmcsr=developers.douban.com|utmccn=(referral)|utmcmd=referral|utmcct=/wiki/; __utmv=30149280.4338; _pk_ref.100001.a7dd=%5B%22%22%2C%22%22%2C1504061149%2C%22https%3A%2F%2Fwww.douban.com%2Fgroup%2Fdbapi%2F%22%5D; _ga=GA1.3.986235821.1502083962; _gid=GA1.3.1760887556.1504035767; _pk_id.100001.a7dd=65d44f7d5b1ff516.1503086500.7.1504061318.1504056594.; _pk_ses.100001.a7dd=*',
+                    'referer':'https://read.douban.com/people/not_your_man/library',
+                    'Host':'read.douban.com'
+                }
+            },  function (error, response, html) {
+                console.log(response.statusCode);
+        
+                $ = cheerio.load(html);
+                        
+                $('.article-profile-intros').each(function(i, el) {
+                    var intro = $('.abstract-full', this).html();
+                    var directory = [];
+        
+                    $('a', '.story-title').each(function(i, el) {
+                        var level = $(this).parent().parent().attr('class').split("story-item ")[1];
+                        var url = $(this).attr("href");
+                        
+                        var title = $(this).text();
+                        var directoryItem = {
+                            title: title,
+                            url: url,
+                            level: level
+                        };
+        
+                        directory.push(directoryItem);
+        
+                    });
+        
+                    var classification = null;
+                    var provider = null;
+                    var published_at = null;
+                    var ISBN = null;
+                    var publisher = null;
+                    var tags = [];
+                    var boodId = null;
                 
-                    if($(this).children('span').attr('itemprop') === "genre"){
-                        classification = $(this).children('span').text();
-                    }
-                    if($(this).children('span').attr('itemprop') === "publisher"){
-                        provider =$(this).children('span').text();
-                    }
-                    if($(this).children('span').attr('itemprop') === "datePublished"){
-                        published_at =$(this).children('span').text();
-                    }
-                    if($(this).children('span').attr('itemprop') === "publisher"){
-                        publisher =$(this).children('span').text();
-                    }
-                    if($(this).children('a').attr('itemprop') === "provider"){
-                        provider =$(this).children('a').text();
-                    }
-                    if($(this).children('a').attr('itemprop') === "isbn"){
-                        ISBN =$(this).children('a').text();
-                    }
+                    $('.labeled-text', this).each(function(i, el) {
+                    
+                        if($(this).children('span').attr('itemprop') === "genre"){
+                            classification = $(this).children('span').text();
+                        }
+                        if($(this).children('span').attr('itemprop') === "publisher"){
+                            provider =$(this).children('span').text();
+                        }
+                        if($(this).children('span').attr('itemprop') === "datePublished"){
+                            published_at =$(this).children('span').text();
+                        }
+                        if($(this).children('span').attr('itemprop') === "publisher"){
+                            publisher =$(this).children('span').text();
+                        }
+                        if($(this).children('a').attr('itemprop') === "provider"){
+                            provider =$(this).children('a').text();
+                        }
+                        if($(this).children('a').attr('itemprop') === "isbn"){
+                            ISBN =$(this).children('a').text();
+                        }
+        
+                    });
+        
+                    $('.labeled-text', this).last().addClass('tags-parser-anchor');
+                    $('a','.tags-parser-anchor').each(function(i, el) {
+                        var tagText = $(this).text();
+                        var tag = tagText.split('(')[0];
+                        var count = tagText.split('(')[1].split(')')[0];
+                        var url = $(this).attr('href');
+                        var e ={
+                            tag: tag,
+                            count: count,
+                            url: url
+                        }
+        
+                        tags.push(e);
+                    });
+        
+                    var bookDetail = {
+                        intro: intro,
+                        directory: directory,
+                        classification:classification,
+                        provider:provider,
+                        published_at:published_at,
+                        ISBN:ISBN,
+                        publisher:publisher,
+                        tags:tags
+                    }            
     
+                    db.collection(BOOK_COLLECTION).update({bookId:book.bookId},{$set:bookDetail}, function(err, doc) {
+                        if (err) {
+                            handleError(res, err.message, "Failed to create new security.");
+                        } else {
+                        }
+                    });
+    
+    
+                    index++;
+                    crawlBookInfoPage(books,index);
+        
                 });
-    
-                $('.labeled-text', this).last().addClass('tags-parser-anchor');
-                $('a','.tags-parser-anchor').each(function(i, el) {
-                    var tagText = $(this).text();
-                    var tag = tagText.split('(')[0];
-                    var count = tagText.split('(')[1].split(')')[0];
-                    var url = $(this).attr('href');
-                    var e ={
-                        tag: tag,
-                        count: count,
-                        url: url
-                    }
-    
-                    tags.push(e);
-                });
-    
-                var bookDetail = {
-                    intro: intro,
-                    directory: directory,
-                    classification:classification,
-                    provider:provider,
-                    published_at:published_at,
-                    ISBN:ISBN,
-                    publisher:publisher,
-                    tags:tags
-                }            
-
-                db.collection(BOOK_COLLECTION).update({bookId:book.bookId},{$set:bookDetail}, function(err, doc) {
-                    if (err) {
-                        handleError(res, err.message, "Failed to create new security.");
-                    } else {
-                    }
-                });
-
-
-                index++;
-                crawlBookInfoPage(books,index);
-    
+        
             });
-    
-        });
+
+        }else{
+            index++;
+            crawlBookInfoPage(books,index);
+        }
 
     }
 

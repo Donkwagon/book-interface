@@ -19,15 +19,6 @@ book.get("", function(req, res) {
   });
 });
 
-book.get("/site/:siteName", function(req, res) {
-  db.collection(BOOK_COLLECTION).find({siteName: req.params.siteName}).toArray(function(err, docs) {
-    if (err) {
-      handleError(res, err.message, "Failed to get books.");
-    } else {
-      res.status(200).json(docs);
-    }
-  });
-});
 
 book.post("", function(req, res) {
   var newbook = req.body;
@@ -42,8 +33,8 @@ book.post("", function(req, res) {
   });
 });
 
-book.get("/:id", function(req, res) {
-  db.collection(BOOK_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
+book.get("/:bookId", function(req, res) {
+  db.collection(BOOK_COLLECTION).findOne({ bookId: req.params.bookId }, function(err, doc) {
     if (err) {
       handleError(res, err.message, "Failed to get book");
     } else {

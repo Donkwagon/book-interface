@@ -11,7 +11,7 @@ import { BookService } from './../@core/services/book.service';
 })
 export class HomeComponent implements OnInit {
   
-    books: Book[];
+  books: Book[];
 
   constructor(private bookService: BookService) {}
 
@@ -28,6 +28,5 @@ export class HomeComponent implements OnInit {
       }
     });
   }
-
 
 }
