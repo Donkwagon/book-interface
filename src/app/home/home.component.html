@@ -1,5 +1,5 @@
 
-<div class="app-side-panel c">
+<div class="app-side-panel c ofys">
   <div class="app-side-panel-tabs r">
     <div class="app-side-panel-tab f1 c">
       分类
@@ -10,21 +10,12 @@
     <div class="app-side-panel-tab f1 c">
       作者
     </div>
-    <div class="app-side-panel-tab f1 c">
+    <div class="app-side-panel-tab f162 c">
       出版社
     </div>
   </div>
-  <div class="app-side-panel-item">
-    计算机与互联网
-  </div>
-  <div class="app-side-panel-item">
-    科幻
-  </div>
-  <div class="app-side-panel-item">
-    金融
-  </div>
-  <div class="app-side-panel-item">
-    商业
+  <div class="app-side-panel-item" *ngFor="let provider of providers">
+    {{provider.name}}
   </div>
 </div>
 

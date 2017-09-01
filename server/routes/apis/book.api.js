@@ -10,7 +10,7 @@ function handleError(res, reason, message, code) {
 }
 
 book.get("", function(req, res) {
-  db.collection(BOOK_COLLECTION).find({}).toArray(function(err, docs) {
+  db.collection(BOOK_COLLECTION).find({},{title:1,bookId:1,_id:0}).toArray(function(err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get books.");
     } else {
