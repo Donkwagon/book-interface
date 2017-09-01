@@ -3,6 +3,7 @@ const imp = express.Router();
 
 const BOOK_COLLECTION = "books";
 const TAG_COLLECTION = "tags";
+const PROVIDER_COLLECTION = "providers";
 
 var ObjectID = require('mongodb').ObjectID;
 
@@ -86,6 +87,14 @@ imp.get("/rake", function(req, res) {
             //     });
                 
             // });
+                
+            db.collection(PROVIDER_COLLECTION).insert({name: doc.provider}, function(err, doc) {
+                if (err) {
+                    handleError(res, err.message, "Failed to create new security.");
+                } else {
+                }
+            });
+
 
         }
     });
@@ -96,6 +105,15 @@ imp.get("/rake", function(req, res) {
         console.log('All done!');
         console.log(books.length + " books")
         
+        setTimeout(function() {
+            db.collection(PROVIDER_COLLECTION).aggregate([{$group:{_id:"$name", dups:{$push:"$_id"}, count: {$sum: 1}}},
+                {$match:{count: {$gt: 1}}}
+                ]).forEach(function(doc){
+                doc.dups.shift();
+                db.collection(PROVIDER_COLLECTION).remove({_id : {$in: doc.dups}});
+            });
+            
+        }, 10000);
     });
 
 

@@ -1,8 +1,18 @@
 <div class="app-page c">
-  {{book.title}}
-  {{book.subTitle}}
-  <div [innerHTML]="book.intro">
-      {{book.intro}}
+  <div class="book-detail">
+    <img [src]="book.coverImg"/>>
+    <h1>{{book.title}}</h1>
+    <h2>{{book.subTitle}}</h2>
+    <div [innerHTML]="book.intro">
+        {{book.intro}}
+    </div>
+    <div>
+      <ul>
+        <li *ngFor="let el of book.directory" class="{{el.level}}">
+          <a href="{{el.url}}" target="_blank">{{el.title}}</a>
+        </li>
+      </ul>
+    </div>
 
   </div>
 </div>
