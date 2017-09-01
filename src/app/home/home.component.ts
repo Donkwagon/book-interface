@@ -6,11 +6,13 @@ import { BookService } from './../@core/services/book.service';
 import { Provider } from './../@core/classes/provider';
 import { ProviderService } from './../@core/services/provider.service';
 
+import { FilterPipe } from './../@core/pipes/filter.pipe';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  providers: [ BookService, ProviderService ]
+  providers: [ BookService, ProviderService, FilterPipe ]
 })
 export class HomeComponent implements OnInit {
   

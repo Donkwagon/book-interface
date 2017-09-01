@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-
-
 import { LocationStrategy }                  from '@angular/common';
 import { HashLocationStrategy }              from '@angular/common';
 
@@ -15,13 +13,17 @@ import { HomeComponent } from './home/home.component';
 import { BookComponent } from './book/book.component';
 import { AdminComponent } from './admin/admin.component';
 
+
+import { FilterPipe } from './@core/pipes/filter.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
     BookComponent,
-    AdminComponent
+    AdminComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
