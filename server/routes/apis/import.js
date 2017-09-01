@@ -2,6 +2,7 @@ const express = require('express');
 const imp = express.Router();
 
 const BOOK_COLLECTION = "books";
+const TAG_COLLECTION = "tags";
 
 var ObjectID = require('mongodb').ObjectID;
 
@@ -45,7 +46,6 @@ imp.get("/book", function(req, res) {
 
 });
 
-
 imp.get("/rake", function(req, res) {
 
     db.collection(BOOK_COLLECTION).aggregate([{$group:{_id:"$bookId", dups:{$push:"$_id"}, count: {$sum: 1}}},
@@ -54,7 +54,50 @@ imp.get("/rake", function(req, res) {
         doc.dups.shift();
         db.collection(BOOK_COLLECTION).remove({_id : {$in: doc.dups}});
     });
+
+
+    db.collection(TAG_COLLECTION).aggregate([{$group:{_id:"$name", dups:{$push:"$_id"}, count: {$sum: 1}}},
+        {$match:{count: {$gt: 1}}}
+        ]).forEach(function(doc){
+        doc.dups.shift();
+        db.collection(TAG_COLLECTION).remove({_id : {$in: doc.dups}});
+    });
+        
+    var stream = db.collection(BOOK_COLLECTION).find().stream();
     
+    var books = [];
+
+    stream.on('data', function(doc) {
+        if(!doc.classification){
+
+            books.push(doc);
+
+        }else{
+
+            // doc.tags.forEach(tag => {
+
+            //     tag.count = parseInt(tag.count);
+                
+            //     db.collection(TAG_COLLECTION).insert({name: tag.tag,count:tag.count}, function(err, doc) {
+            //         if (err) {
+            //             handleError(res, err.message, "Failed to create new security.");
+            //         } else {
+            //         }
+            //     });
+                
+            // });
+
+        }
+    });
+    stream.on('error', function(err) {
+        console.log(err);
+    });
+    stream.on('end', function() {
+        console.log('All done!');
+        console.log(books.length + " books")
+        
+    });
+
 
 });
 

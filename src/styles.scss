@@ -109,15 +109,14 @@ body{padding:0;margin:0;}
 }
 
 .book{
-    margin:0.5em;
-    width:7em;
-    padding:0.2em;
+    margin:0 0.5em;
+    //width:7em;
+    padding:8px 24px;
     background-color:#fff;
-    border-radius:1px;
-    border:rgb(240,240,240) solid 1px;
+    border-bottom:rgb(240,240,240) solid 1px;
 
     img{width:7em;height:auto;}
-    span{font-size:11px;color:#999;}
+    span{color:#333;}
 }
 
 
