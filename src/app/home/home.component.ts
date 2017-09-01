@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   
   books: Book[];
   providers: Provider[];
+  filter: String;
 
   constructor(private bookService: BookService, private providerService: ProviderService) {}
 
@@ -44,6 +45,10 @@ export class HomeComponent implements OnInit {
         this.providers = res;
       }
     });
+  }
+
+  selectFilter = (filter) => {
+    this.filter = filter;
   }
 
 }

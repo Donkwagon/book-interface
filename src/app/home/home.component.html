@@ -14,14 +14,14 @@
       出版社
     </div>
   </div>
-  <div class="app-side-panel-item" *ngFor="let provider of providers">
+  <div class="app-side-panel-item" *ngFor="let provider of providers" (click)="selectFilter(provider.name)">
     {{provider.name}}
   </div>
 </div>
 
 <div class="app-main">
   <div class="app-main-body c">
-    <div class="book c" *ngFor="let book of books | filter : 'bookId' : '4204407'">
+    <div class="book c" *ngFor="let book of books | filter : 'provider' : filter">
       <span><a routerLink="/b/{{book.bookId}}">{{book.title}}</a></span>
     </div>
   </div>
