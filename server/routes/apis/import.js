@@ -10,14 +10,11 @@ var ObjectID = require('mongodb').ObjectID;
 var request = require('request');
 var cheerio = require('cheerio');
 
-
 function handleError(res, reason, message, code) {
   console.log("ERROR: " + reason);
   res.status(code || 500).json({"error": message});
 }
 
-////////////////////////////////////////////////////////////////////////////////
-//Get user list
 imp.get("/library", function(req, res) {
     
     crawlLibraryPage(0);
@@ -118,7 +115,6 @@ imp.get("/rake", function(req, res) {
 
 
 });
-
 
 
 crawlLibraryPage = function(pageNum){
