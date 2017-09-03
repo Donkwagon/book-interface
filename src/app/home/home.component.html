@@ -1,27 +1,34 @@
 
 <div class="app-side-panel c ofys">
   <div class="app-side-panel-tabs r">
-    <div class="app-side-panel-tab f1 c">
+    <div class="app-side-panel-tab f1 c" (click)="sidePanelMode('classifications')">
       分类
     </div>
-    <div class="app-side-panel-tab f1 c">
+    <div class="app-side-panel-tab f1 c" (click)="sidePanel = 'tags'">
       标签
     </div>
-    <div class="app-side-panel-tab f1 c">
+    <div class="app-side-panel-tab f1 c" (click)="sidePanel = 'authors'">
       作者
     </div>
-    <div class="app-side-panel-tab f162 c">
+    <div class="app-side-panel-tab f162 c" (click)="sidePanel = 'providers'">
       出版社
     </div>
   </div>
-  <div class="app-side-panel-item" *ngFor="let provider of providers" (click)="selectFilter(provider.name)">
-    {{provider.name}}
+  <div class="c" *ngIf="sidePanel === 'providers'">
+    <div class="app-side-panel-item" *ngFor="let provider of providers" (click)="selectFilter(provider.providerId)">
+      {{provider.name}}
+    </div>
+  </div>
+  <div class="c" *ngIf="sidePanel === 'tags'">
+    <div class="app-side-panel-item" *ngFor="let tag of tags" (click)="selectFilter(provider.providerId)">
+      {{tag.name}}
+    </div>
   </div>
 </div>
 
 <div class="app-main">
   <div class="app-main-body c">
-    <div class="book c" *ngFor="let book of books | filter : 'provider' : filter">
+    <div class="book c" *ngFor="let book of books | filter : 'providerId' : filter">
       <span><a routerLink="/b/{{book.bookId}}">{{book.title}}</a></span>
     </div>
   </div>

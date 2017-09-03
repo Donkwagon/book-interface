@@ -10,7 +10,7 @@ function handleError(res, reason, message, code) {
 }
 
 tag.get("", function(req, res) {
-  db.collection(TAG_COLLECTION).find({},{title:1,tagId:1,_id:0}).toArray(function(err, docs) {
+  db.collection(TAG_COLLECTION).find({}).toArray(function(err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get tags.");
     } else {
