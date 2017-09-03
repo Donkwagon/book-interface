@@ -209,7 +209,16 @@ crawlBookInfoPage = function(books,index){
                 console.log(response.statusCode);
         
                 $ = cheerio.load(html);
-                        
+    
+                var classification = null;
+                var provider = null;
+                var published_at = null;
+                var ISBN = null;
+                var publisher = null;
+                var tags = [];
+                var boodId = null;
+                var providerId = null;
+            
                 $('.article-profile-intros').each(function(i, el) {
                     var intro = $('.abstract-full', this).html();
                     var directory = [];
@@ -228,15 +237,6 @@ crawlBookInfoPage = function(books,index){
                         directory.push(directoryItem);
         
                     });
-        
-                    var classification = null;
-                    var provider = null;
-                    var published_at = null;
-                    var ISBN = null;
-                    var publisher = null;
-                    var tags = [];
-                    var boodId = null;
-                    var providerId = null;
                 
                     $('.labeled-text', this).each(function(i, el) {
                     
@@ -275,54 +275,58 @@ crawlBookInfoPage = function(books,index){
         
                         tags.push(e);
                     });
-                    if($('a', '.author-info').attr('href')){
-                        providerId = $('a', '.author-info').attr('href').split("/")[2];
-                        var providerUrl = "https://read.douban.com" + $('a', '.author-info').attr('href');
-                        var providerImg = "https://read.douban.com" + $('img', '.author-info').attr('src');
-                        
-                        var providerObj = {
-                            name: provider,
-                            url: providerUrl,
-                            providerId: providerId,
-                            imgUrl: providerImg
-                        }
-    
-                        console.log(providerObj)
-        
-                        db.collection(PROVIDER_COLLECTION).insert(providerObj, function(err, doc) {
-                            if (err) {
-                                handleError(res, err.message, "Failed to create new security.");
-                            } else {
-                            }
-                        });
-        
 
-                    }
-        
                     var bookDetail = {
                         intro: intro,
                         directory: directory,
                         classification:classification,
                         provider:provider,
-                        providerId: providerId,
                         published_at:published_at,
                         ISBN:ISBN,
                         publisher:publisher,
                         tags:tags
-                    }            
+                    }    
+
+        
+                });
+        
+                $('.author-info').each(function(i, el) {
+                    providerId = $('a', this).attr('href').split("/")[2];
+                    var providerUrl = "https://read.douban.com" + $('a', this).attr('href');
+                    var providerImg = $('img', this).attr('src');
+                    
+                    var providerObj = {
+                        name: provider,
+                        url: providerUrl,
+                        providerId: providerId,
+                        imgUrl: providerImg
+                    }
+                    console.log(providerObj)
     
+                    db.collection(PROVIDER_COLLECTION).insert(providerObj, function(err, doc) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                        }
+                    });
+                    var bookDetail = {
+                        providerId: providerId
+                    }               
                     db.collection(BOOK_COLLECTION).update({bookId:book.bookId},{$set:bookDetail}, function(err, doc) {
                         if (err) {
                             handleError(res, err.message, "Failed to create new security.");
                         } else {
                         }
                     });
-    
-                    index++;
-                    crawlBookInfoPage(books,index);
-        
                 });
-        
+       
+                   
+
+
+                index++;
+                crawlBookInfoPage(books,index);
+
+
             });
 
         }else{

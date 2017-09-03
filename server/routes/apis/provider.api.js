@@ -19,7 +19,6 @@ provider.get("", function(req, res) {
   });
 });
 
-
 provider.post("", function(req, res) {
   var newprovider = req.body;
   newprovider.createDate = new Date();
@@ -39,20 +38,6 @@ provider.get("/:providerId", function(req, res) {
       handleError(res, err.message, "Failed to get provider");
     } else {
       res.status(200).json(doc);
-    }
-  });
-});
-
-provider.put("/:id", function(req, res) {
-  var updateDoc = req.body;
-  delete updateDoc._id;
-
-  db.collection(PROVIDER_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to update provider");
-    } else {
-      updateDoc._id = req.params.id;
-      res.status(200).json(updateDoc);
     }
   });
 });
