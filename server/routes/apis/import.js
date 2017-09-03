@@ -60,57 +60,58 @@ imp.get("/rake", function(req, res) {
         doc.dups.shift();
         db.collection(TAG_COLLECTION).remove({_id : {$in: doc.dups}});
     });
-        
+    
+
+    db.collection(PROVIDER_COLLECTION).aggregate([{$group:{_id:"$providerId", dups:{$push:"$_id"}, count: {$sum: 1}}},
+        {$match:{count: {$gt: 1}}}
+        ]).forEach(function(doc){
+        doc.dups.shift();
+        db.collection(PROVIDER_COLLECTION).remove({_id : {$in: doc.dups}});
+    });
+    
     var stream = db.collection(BOOK_COLLECTION).find().stream();
     
     var books = [];
 
     stream.on('data', function(doc) {
-        if(!doc.classification){
-
-            books.push(doc);
-
-        }else{
-
-            // doc.tags.forEach(tag => {
-
-            //     tag.count = parseInt(tag.count);
-                
-            //     db.collection(TAG_COLLECTION).insert({name: tag.tag,count:tag.count}, function(err, doc) {
-            //         if (err) {
-            //             handleError(res, err.message, "Failed to create new security.");
-            //         } else {
-            //         }
-            //     });
-                
-            // });
-                
-            db.collection(PROVIDER_COLLECTION).insert({name: doc.provider}, function(err, doc) {
+        if(!doc.type){
+            var type = null;
+            if(doc.url_info.includes("column")){
+                type = "column";
+            }
+            if(doc.url_info.includes("bundle")){
+                type = "bundle";
+            }
+            if(doc.url_info.includes("ebook")){
+                type = "ebook";
+            }
+            db.collection(BOOK_COLLECTION).update({bookId:doc.bookId},{$set:{type:type}}, function(err, doc) {
                 if (err) {
                     handleError(res, err.message, "Failed to create new security.");
                 } else {
+                    console.log(type);
                 }
             });
 
-
         }
+        
     });
     stream.on('error', function(err) {
         console.log(err);
     });
     stream.on('end', function() {
         console.log('All done!');
-        console.log(books.length + " books")
+        // console.log(books.length + " books")
         
-        setTimeout(function() {
-            db.collection(PROVIDER_COLLECTION).aggregate([{$group:{_id:"$name", dups:{$push:"$_id"}, count: {$sum: 1}}},
-                {$match:{count: {$gt: 1}}}
-                ]).forEach(function(doc){
-                doc.dups.shift();
-                db.collection(PROVIDER_COLLECTION).remove({_id : {$in: doc.dups}});
-            });
+        // setTimeout(function() {
+        //     db.collection(PROVIDER_COLLECTION).aggregate([{$group:{_id:"$name", dups:{$push:"$_id"}, count: {$sum: 1}}},
+        //         {$match:{count: {$gt: 1}}}
+        //         ]).forEach(function(doc){
+        //         doc.dups.shift();
+        //         db.collection(PROVIDER_COLLECTION).remove({_id : {$in: doc.dups}});
+        //     });
             
-        }, 10000);
+        // }, 10000);
     });
 
 

@@ -29,7 +29,15 @@
 <div class="app-main">
   <div class="app-main-body c">
     <div class="book c" *ngFor="let book of books | filter : 'providerId' : filter">
-      <span><a routerLink="/b/{{book.bookId}}">{{book.title}}</a></span>
+      <span>
+        <a routerLink="/b/{{book.bookId}}">
+          <i class="fa fa-book" aria-hidden="true" *ngIf="book.type === 'ebook'"></i>
+          <i class="fa fa-columns" aria-hidden="true" *ngIf="book.type === 'column'"></i>
+          <i class="fa fa-stack-overflow" aria-hidden="true" *ngIf="book.type === 'bundle'"></i>
+          
+          &nbsp;{{book.title}}
+        </a>
+      </span>
     </div>
   </div>
 </div>
