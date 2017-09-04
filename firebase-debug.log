@@ -1,0 +1,70 @@
+[debug] [2017-09-04T03:01:30.748Z] ----------------------------------------------------------------------
+[debug] [2017-09-04T03:01:30.750Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy --only functions
+[debug] [2017-09-04T03:01:30.750Z] CLI Version:   3.9.2
+[debug] [2017-09-04T03:01:30.750Z] Platform:      darwin
+[debug] [2017-09-04T03:01:30.750Z] Node Version:  v8.2.1
+[debug] [2017-09-04T03:01:30.750Z] Time:          Sun Sep 03 2017 23:01:30 GMT-0400 (EDT)
+[debug] [2017-09-04T03:01:30.750Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-09-04T03:01:30.763Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-09-04T03:01:30.764Z] > authorizing via signed-in user
+[debug] [2017-09-04T03:01:30.766Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/book-interface  
+ Sun Sep 03 2017 23:01:30 GMT-0400 (EDT)
+[debug] [2017-09-04T03:01:31.700Z] <<< HTTP RESPONSE 200
+[debug] [2017-09-04T03:01:31.701Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/book-interface/tokens  
+ Sun Sep 03 2017 23:01:31 GMT-0400 (EDT)
+[debug] [2017-09-04T03:01:32.306Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'book-interface'...
+[info] 
+[info] i  deploying functions
+[debug] [2017-09-04T03:01:33.137Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "dependencies": {
+    "firebase-admin": "~4.2.1",
+    "firebase-functions": "^0.5.7"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[info] i  runtimeconfig: ensuring necessary APIs are enabled...
+[debug] [2017-09-04T03:01:33.138Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/book-interface?view=CONSUMER_VIEW  
+ Sun Sep 03 2017 23:01:33 GMT-0400 (EDT)
+[debug] [2017-09-04T03:01:33.139Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/book-interface?view=CONSUMER_VIEW  
+ Sun Sep 03 2017 23:01:33 GMT-0400 (EDT)
+[debug] [2017-09-04T03:01:33.744Z] <<< HTTP RESPONSE 200
+[info] ✔  runtimeconfig: all necessary APIs are enabled
+[debug] [2017-09-04T03:01:33.777Z] <<< HTTP RESPONSE 200
+[warn] ⚠  functions: missing necessary APIs. Enabling now...
+[debug] [2017-09-04T03:01:33.778Z] >>> HTTP REQUEST PATCH https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/book-interface?updateMask=usageSettings { usageSettings: { consumerEnableStatus: 'ENABLED' } } 
+ Sun Sep 03 2017 23:01:33 GMT-0400 (EDT)
+[debug] [2017-09-04T03:01:35.174Z] <<< HTTP RESPONSE 200
+[debug] [2017-09-04T03:01:45.175Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/book-interface?view=CONSUMER_VIEW  
+ Sun Sep 03 2017 23:01:45 GMT-0400 (EDT)
+[debug] [2017-09-04T03:01:46.850Z] <<< HTTP RESPONSE 200
+[info] i  functions: waiting for APIs to activate...
+[debug] [2017-09-04T03:01:56.858Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/book-interface?view=CONSUMER_VIEW  
+ Sun Sep 03 2017 23:01:56 GMT-0400 (EDT)
+[debug] [2017-09-04T03:01:57.495Z] <<< HTTP RESPONSE 200
+[info] i  functions: waiting for APIs to activate...
+[debug] [2017-09-04T03:02:07.500Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/book-interface?view=CONSUMER_VIEW  
+ Sun Sep 03 2017 23:02:07 GMT-0400 (EDT)
+[debug] [2017-09-04T03:02:07.979Z] <<< HTTP RESPONSE 200
+[info] i  functions: waiting for APIs to activate...
+[debug] [2017-09-04T03:02:17.985Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/book-interface?view=CONSUMER_VIEW  
+ Sun Sep 03 2017 23:02:17 GMT-0400 (EDT)
+[debug] [2017-09-04T03:02:18.594Z] <<< HTTP RESPONSE 200
+[info] i  functions: waiting for APIs to activate...
+[debug] [2017-09-04T03:02:28.599Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/book-interface?view=CONSUMER_VIEW  
+ Sun Sep 03 2017 23:02:28 GMT-0400 (EDT)
+[debug] [2017-09-04T03:02:29.211Z] <<< HTTP RESPONSE 200
+[info] i  functions: waiting for APIs to activate...
+[debug] [2017-09-04T03:02:39.211Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/book-interface?view=CONSUMER_VIEW  
+ Sun Sep 03 2017 23:02:39 GMT-0400 (EDT)
+[debug] [2017-09-04T03:02:39.843Z] <<< HTTP RESPONSE 200
+[info] i  functions: waiting for APIs to activate...
+[debug] [2017-09-04T03:02:49.849Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/book-interface?view=CONSUMER_VIEW  
+ Sun Sep 03 2017 23:02:49 GMT-0400 (EDT)
+[debug] [2017-09-04T03:02:50.541Z] <<< HTTP RESPONSE 200
+[info] i  functions: waiting for APIs to activate...
