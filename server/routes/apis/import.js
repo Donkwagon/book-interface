@@ -47,10 +47,10 @@ imp.get("/book", function(req, res) {
 imp.get("/book-public", function(req, res) {
     
     crawlPublicBookList(1,2038);
-    crawlPublicBookList(1,1739);
-    crawlPublicBookList(1,1740);
-    crawlPublicBookList(1,1741);
-    crawlPublicBookList(1,1742);
+    crawlPublicBookList(1,2039);
+    crawlPublicBookList(1,2040);
+    crawlPublicBookList(1,2041);
+    crawlPublicBookList(1,2042);
     
 });
 
