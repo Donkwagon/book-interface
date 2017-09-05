@@ -46,9 +46,11 @@ imp.get("/book", function(req, res) {
 
 imp.get("/book-public", function(req, res) {
     
-    crawlPublicBookList(1,1288);
-    crawlPublicBookList(1,1288);
-    crawlPublicBookList(1,1288);
+    crawlPublicBookList(1,1708);
+    crawlPublicBookList(1,1709);
+    crawlPublicBookList(1,1710);
+    crawlPublicBookList(1,1711);
+    crawlPublicBookList(1,1712);
     
 });
 
@@ -440,7 +442,7 @@ crawlPublicBookList = function(kindNum,pageNum){
                 if (err) {
                     console.log(err);
                 } else {
-                    pageNum+=3;
+                    pageNum+=5;
                     crawlPublicBookList(kindNum,pageNum);
                 }
             });
