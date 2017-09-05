@@ -38,7 +38,7 @@ imp.get("/book", function(req, res) {
     stream.on('end', function() {
         console.log('All done!');
         console.log(books.length + " books")
-        crawlBookInfoPage(books,0);
+        crawlBookInfoPage(books,250);
     });
     
 
