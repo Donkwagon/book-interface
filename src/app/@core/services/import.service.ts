@@ -23,6 +23,13 @@ export class ImportService {
                   .catch(this.handleError);
     }
     
+    importPublicBooks(): Promise<any> {
+      return this.http.get(this.importUrl + "/book-public")
+                  .toPromise()
+                  .then(response => response.json() as any)
+                  .catch(this.handleError);
+    }
+    
     rakeData(): Promise<any> {
       return this.http.get(this.importUrl + "/rake")
                   .toPromise()

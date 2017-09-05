@@ -26,6 +26,12 @@ export class AdminComponent implements OnInit {
       console.log(res);
     });
   }
+  
+  importPublicBooks = () => {
+    this.importService.importPublicBooks().then(res => {
+      console.log(res);
+    });
+  }
 
   rakeData = () => {
     this.importService.rakeData().then(res => {
