@@ -41,8 +41,8 @@ export class HomeComponent implements OnInit {
   }
   
   getBooks = () => {
-    console.log("?");
-    this.bookService.getBooks().then(res => {
+    var username = "Donkw";
+    this.bookService.getBooks(username).then(res => {
       console.log(res);
       if(res){
         this.books = res;
@@ -51,7 +51,6 @@ export class HomeComponent implements OnInit {
   }
   
   getProviders = () => {
-    console.log("?");
     this.providerService.getProviders().then(res => {
       console.log(res);
       if(res){
@@ -61,7 +60,6 @@ export class HomeComponent implements OnInit {
   }  
 
   getTags = () => {
-    console.log("?");
     this.tagService.getTags().then(res => {
       console.log(res);
       if(res){

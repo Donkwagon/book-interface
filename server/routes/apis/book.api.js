@@ -1,6 +1,7 @@
 const express = require('express');
 const book = express.Router();
 var BOOK_COLLECTION = "books";
+var OWNERSHIP_COLLECTION = "ownerships";
 var ObjectID = require('mongodb').ObjectID;
 
 // Generic error handler used by all endpoints.
@@ -9,8 +10,8 @@ function handleError(res, reason, message, code) {
   res.status(code || 500).json({"error": message});
 }
 
-book.get("", function(req, res) {
-  db.collection(BOOK_COLLECTION).find({},{title:1,bookId:1,type:1,_id:0}).toArray(function(err, docs) {
+book.get("/user/:username", function(req, res) {
+  db.collection(OWNERSHIP_COLLECTION).find({owner:req.body.username},{title:1,bookId:1,type:1,_id:0}).toArray(function(err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get books.");
     } else {

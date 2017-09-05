@@ -38,7 +38,7 @@ imp.get("/book", function(req, res) {
     stream.on('end', function() {
         console.log('All done!');
         console.log(books.length + " books")
-        crawlBookInfoPage(books,250);
+        crawlBookInfoPage(books,0);
     });
     
 
@@ -46,7 +46,9 @@ imp.get("/book", function(req, res) {
 
 imp.get("/book-public", function(req, res) {
     
-    crawlPublicBookList(1,0);
+    crawlPublicBookList(1,1088);
+    crawlPublicBookList(1,1089);
+    crawlPublicBookList(1,1090);
     
 });
 
@@ -436,9 +438,9 @@ crawlPublicBookList = function(kindNum,pageNum){
             
             db.collection(BOOK_COLLECTION).insertMany(books, function(err, doc) {
                 if (err) {
-                    handleError(res, err.message, "Failed to create new security.");
+                    console.log(err);
                 } else {
-                    pageNum++;
+                    pageNum+=3;
                     crawlPublicBookList(kindNum,pageNum);
                 }
             });
