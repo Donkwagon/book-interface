@@ -117,9 +117,11 @@ imp.get("/rake", function(req, res) {
         }
         
     });
+
     stream.on('error', function(err) {
         console.log(err);
     });
+    
     stream.on('end', function() {
         console.log('All done!');
         // console.log(books.length + " books")

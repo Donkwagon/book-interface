@@ -18,6 +18,7 @@ html{
     font-family: $font-stack;
     font-size:14px;
     -webkit-font-smoothing:antialiased;
+    color:#330;
 }
 *{flex-shrink:0;}
 
@@ -32,7 +33,7 @@ a:active {color:$link-color;text-decoration:none;}
     position:fixed;
     top:0;left:0;
     width:100%;height: 3em;
-    background-color:#fff;
+    background-color:rgb(236, 236, 231);
     align-items:center;
     z-index:10;
     border-bottom:#eee solid 1px;
@@ -66,7 +67,7 @@ a:active {color:$link-color;text-decoration:none;}
     padding-top:3em;
     width:20em;
     height: 100%;
-    background-color:#fff;
+    //background-color:#fff;
     z-index:2;
     border-right:#eee solid 1px;
 
@@ -81,7 +82,7 @@ a:active {color:$link-color;text-decoration:none;}
     }
 
     .app-side-panel-tabs{
-         background-color:#fff;
+         //background-color:#fff;
          border-bottom:#eee solid 1px;
 
         .app-side-panel-tab{
