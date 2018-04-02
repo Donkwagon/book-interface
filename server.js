@@ -21,11 +21,10 @@ server.listen(process.env.PORT || 8080, function (err) {
 });
 //////////////////////////////////////////
 
-
 //////////////////////////////////////////
 //Connect to mongoose db
 // Use native promises
-var MongoDbConStr = "mongodb://donkw:Idhap007@ds111204.mlab.com:11204/heroku_rvmvn6sz";
+var MongoDbConStr = "mongodb://Donkw:Idhap007@ds023463.mlab.com:23463/heroku_3g0xq8q9";
 global.db = mongoose.createConnection(MongoDbConStr);
 
 //////////////////////////////////////////
