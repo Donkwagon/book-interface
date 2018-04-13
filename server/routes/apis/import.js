@@ -180,7 +180,7 @@ crawlLibraryPage = function(pageNum){
             var book = {
                 title:title,
                 subTitle:subtitle,
-                bookId:bookId,
+                bookId:Math.parseInt(bookId),
                 url_info:url_info,
                 url_reader:url_reader,
                 coverImg:coverImg,

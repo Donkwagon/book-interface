@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-$font-stack: 'Roboto', "Helvetica Neue", sans-serif;
+$font-stack: 'source-han-serif-sc', 'Roboto', "Helvetica Neue", sans-serif;
 
 ////////////////////////////////////////////////////////////////////////
 /* Frequently used css properties */
@@ -15,7 +15,7 @@ $font-stack: 'Roboto', "Helvetica Neue", sans-serif;
 
 html{
     background-color:rgb(246, 246, 241);
-    font-family: $font-stack;
+    font-family: 'source-han-serif-sc';
     font-size:14px;
     -webkit-font-smoothing:antialiased;
     color:#330;
