@@ -142,7 +142,7 @@ imp.get("/rake", function(req, res) {
 
 
 crawlLibraryPage = function(pageNum){
-    var URL = 'https://read.douban.com/people/not_your_man/library?start=' + pageNum + '&sort=time&mode=grid';
+    var URL = 'https://read.douban.com/people/not_your_man/ebook?start=' + pageNum + '&sort=time&mode=grid';
     req = request.defaults({jar: true,rejectUnauthorized: false,followAllRedirects: true});
     req.get({url: URL, headers: HEADER},  function (error, response, html) {
 
@@ -180,7 +180,7 @@ crawlLibraryPage = function(pageNum){
             var book = {
                 title:title,
                 subTitle:subtitle,
-                bookId:Math.parseInt(bookId),
+                bookId:parseInt(bookId),
                 url_info:url_info,
                 url_reader:url_reader,
                 coverImg:coverImg,
@@ -213,7 +213,7 @@ crawlBookInfoPage = function(books,index){
     if(index < books.length){
         var book = books[index];
         var URL = book.url_info;
-        if(!URL.includes("column")&&!URL.includes("bundle")){
+        if(!URL.includes("column") && !URL.includes("bundle")){
             console.log(URL);
             
             req = request.defaults({jar: true,rejectUnauthorized: false,followAllRedirects: true});
